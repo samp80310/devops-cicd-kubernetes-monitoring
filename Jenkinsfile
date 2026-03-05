@@ -3,9 +3,21 @@ pipeline {
 
     stages {
 
+        stage('Clone Repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/samp80310/devops-end-to-end-project.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t devops-demo .'
+                sh 'docker build -t samp80310/devops-demo-app:latest .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker push samp80310/devops-demo-app:latest'
             }
         }
 
@@ -16,4 +28,3 @@ pipeline {
         }
 
     }
-}
